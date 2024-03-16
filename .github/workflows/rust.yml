@@ -21,8 +21,9 @@ jobs:
       with:
         submodules: true
     - name: Install Cargo Dist
-      run: cargo install cargo-dist --locked
+      run: cargo install cargo-dist
+    - name: Build
+      run: cargo dist build
     - name: Run tests
       run: cargo test --verbose
-    - name: Build
-      run: cargo dist build --verbose
+    

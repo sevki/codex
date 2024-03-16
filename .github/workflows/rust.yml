@@ -20,7 +20,9 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: true
-    - name: Build
-      run: cargo build --verbose
+    - name: Install Cargo Dist
+      run: cargo install cargo-dist --locked
     - name: Run tests
       run: cargo test --verbose
+    - name: Build
+      run: cargo dist build --verbose

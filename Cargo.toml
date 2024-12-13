@@ -33,6 +33,11 @@ lto = true
 inherits = "lto"
 codegen-units = 1
 
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
 [workspace]
 # Explicitly list all crates of crosvm as workspace members since not all of them may be referenced
 # by dependencies.
@@ -109,6 +114,20 @@ exclude = [
     # This crate depends on optional features and is compiled via dependencies when enabled.
     "media/libvda",
 ]
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.11.1"
+# CI backends to support
+ci = ["github"]
+# The installers to generate for each app
+installers = ["shell"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["x86_64-unknown-linux-gnu"]
+# Publish jobs to run in CI
+pr-run-mode = "upload"
+allow-dirty = true
 
 [features]
 ## Default features of crosvm. This selection is somewhat arbitrary for historical reasons.
